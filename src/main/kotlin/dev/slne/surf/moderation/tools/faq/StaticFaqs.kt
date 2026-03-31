@@ -1,22 +1,10 @@
 package dev.slne.surf.moderation.tools.faq
 
+import dev.slne.surf.surfapi.core.api.messages.adventure.buildText
+import dev.slne.surf.surfapi.core.api.messages.adventure.clickOpensUrl
 import dev.slne.surf.surfapi.core.api.messages.builder.SurfComponentBuilder
-<<<<<<< master
-import net.kyori.adventure.text.Component
-import net.kyori.adventure.text.ComponentLike
-import net.kyori.adventure.text.minimessage.MiniMessage.miniMessage
-import org.spongepowered.configurate.objectmapping.ConfigSerializable
 
-@ConfigSerializable
-data class Faq(
-    val id: String,
-    val content: String,
-    var enabled: Boolean = true
-) : ComponentLike {
-    override fun asComponent(): Component = miniMessage().deserialize(content)
-=======
-
-enum class Faq(val id: String, message: SurfComponentBuilder.() -> Unit) {
+enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Unit) {
     ASK("ask", {
         text("Wenn du eine Frage hast, stell sie einfach. ")
         text("Such nicht nach bestimmten Leuten und frag nicht erst, ob du fragen darfst oder ob jemand da ist. ")
@@ -293,19 +281,10 @@ enum class Faq(val id: String, message: SurfComponentBuilder.() -> Unit) {
         text("findest du die Antwort.")
     });
 
-    val message = SurfComponentBuilder(message)
->>>>>>> version/1.21.11
-
     companion object {
-        fun create(
-            id: String,
-            content: SurfComponentBuilder.() -> Unit,
-            enabled: Boolean = true
-        ): Faq =
-            Faq(
-                id,
-                miniMessage().serialize(SurfComponentBuilder(content)),
-                enabled
-            )
+        fun byId(name: String) =
+            entries.find { it.id.equals(name, ignoreCase = true) }
+
+        operator fun get(name: String) = byId(name)
     }
 }

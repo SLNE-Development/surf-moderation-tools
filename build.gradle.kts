@@ -25,6 +25,5 @@ surfPaperPluginApi {
     }
 
     runServer {
-        withSurfApiBukkit()
     }
 }
