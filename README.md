@@ -23,15 +23,19 @@ provides quick administrative and support functions directly in-game.
   - 📍 Ping a player with a auditory indicator and an optional message.
   - Permission: ``surf.moderation.tools.command.pingPlayer``
 
-- **`/faq <FAQ> [Player]`**
-  📄 Send pre-defined answers to frequently asked questions.
-  - Permission: ``surf.moderation.tools.command.faq``
-  - If no player is specified, the FAQ is sent to all relevant viewers.
+- **`/faq send <FAQ> [Player]`**
+  📄 Send predefined answers to frequently asked questions.
+  - Permission: ``surf.moderation.tools.command.faq.send``
+  - If no player is specified, the FAQ is sent to all player.
   - If a player is specified, only that player receives the FAQ **and gets pinged** with a notification sound.
-  - Note: The `/faq` command expects the kebab-case FAQ **id** (for example, ``veteran-benefits``, ``how-to-join``). Use in-game tab-completion to see the exact available FAQ ids. The list below shows the FAQ topics, not necessarily the literal ids you type.
+  - Note: The FAQ **ID** must be provided in kebab-case (e.g., ``veteran-benefits``, ``how-to-join``). Available FAQ IDs can be viewed in-game via tab-completion. The list below shows FAQ topics, not necessarily the exact IDs.
+
+- **`/faq settings`**
+  ⚙️ Opens the FAQ management interface. Here you can create, edit, delete, enable, or disable FAQs.
+  - Permission: ``surf.moderation.tools.command.faq.settings``
 
   <details>
-    <summary>📄 Current FAQ topics (click to expand)</summary>
+    <summary>📄 Current static FAQ topics (click to expand)</summary>
 
     - ask
     - custom-enchantments

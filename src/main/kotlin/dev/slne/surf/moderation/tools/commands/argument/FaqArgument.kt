@@ -2,24 +2,33 @@ package dev.slne.surf.moderation.tools.commands.argument
 
 import dev.jorel.commandapi.CommandAPICommand
 import dev.jorel.commandapi.arguments.Argument
-import dev.jorel.commandapi.arguments.ArgumentSuggestions
 import dev.jorel.commandapi.arguments.CustomArgument
 import dev.jorel.commandapi.arguments.StringArgument
+import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
 import dev.slne.surf.moderation.tools.faq.Faq
+import dev.slne.surf.surfapi.core.api.messages.adventure.buildText
 
 class FaqArgument(nodeName: String) : CustomArgument<Faq, String>(
     StringArgument(nodeName),
     { info ->
-        Faq.byId(info.input) ?: throw CustomArgumentException.fromMessageBuilder(
-            MessageBuilder()
-                .append("FAQ ")
-                .appendArgInput()
-                .append(" nicht gefunden.")
+        SurfModerationToolConfig.getConfig().faqs.find { it.id == info.input } ?: throw CustomArgumentException.fromAdventureComponent(
+            buildText {
+                appendErrorPrefix()
+                error("Das FAQ")
+                appendSpace()
+                variableValue(info.input)
+                appendSpace()
+                error("existiert nicht.")
+            }
         )
-    }
-) {
+    })
+{
     init {
-        replaceSuggestions(ArgumentSuggestions.strings(Faq.entries.map { it.id }))
+        replaceSuggestions(
+            dev.jorel.commandapi.arguments.ArgumentSuggestions.strings {
+                SurfModerationToolConfig.getConfig().faqs.map { it.id }.toTypedArray()
+            }
+        )
     }
 }
 

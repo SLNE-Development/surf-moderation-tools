@@ -29,6 +29,14 @@ object FaqService {
         faq: Faq,
         targets: Collection<Player>? = null
     ) {
+        if (!faq.enabled) {
+            executor.sendText {
+                appendErrorPrefix()
+                error("Dieses FAQ ist deaktiviert und kann nicht gesendet werden.")
+            }
+            return
+        }
+
         val now = System.currentTimeMillis()
         val lastUsed = lastFaqUsage.getIfPresent(faq) ?: 0L
         val remainingMillis = faqCooldown - (now - lastUsed)
@@ -48,7 +56,7 @@ object FaqService {
         if (targets.isNullOrEmpty()) {
             server.sendText {
                 appendArtyPrefix()
-                append(faq.message)
+                append(faq)
             }
         } else {
             executor.sendText {
@@ -63,7 +71,7 @@ object FaqService {
                             appendArtyPrefix()
                             variableValue("@${target.name}", TextDecoration.BOLD)
                             appendSpace()
-                            append(faq.message)
+                            append(faq)
                         }
 
                         target.playSound(useSelfEmitter = true) {
