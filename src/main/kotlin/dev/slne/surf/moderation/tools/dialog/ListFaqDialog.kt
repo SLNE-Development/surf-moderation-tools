@@ -4,7 +4,7 @@ import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
 import dev.slne.surf.api.paper.dialog.*
 import dev.slne.surf.api.paper.dialog.builder.*
 
-fun listFaqsDialog() = dialog {
+fun createListFaqsDialog() = dialog {
     base {
         title { primary("FAQ Liste") }
     }

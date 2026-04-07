@@ -1,5 +1,6 @@
 package dev.slne.surf.moderation.tools.dialog
 
+import dev.slne.surf.api.core.minimessage.SurfMiniMessageHolder.miniMessage
 import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
 import dev.slne.surf.moderation.tools.faq.Faq
 import io.papermc.paper.registry.data.dialog.ActionButton
@@ -7,13 +8,14 @@ import org.bukkit.entity.Player
 import dev.slne.surf.api.paper.dialog.*
 import dev.slne.surf.api.paper.dialog.builder.*
 
-fun createFaqDialog() = dialog {
+fun createFaqDialog(faq: Faq) = dialog {
     base {
         title { primary("FAQ erstellen") }
 
         input {
             text("faqName") {
                 label { text("FAQ Name") }
+                initial(faq.id)
                 maxLength(64)
                 width(600)
             }
@@ -22,6 +24,7 @@ fun createFaqDialog() = dialog {
         input {
             text("faqContent") {
                 label { text("FAQ Inhalt") }
+                initial(faq.content)
                 width(600)
                 maxLength(Int.MAX_VALUE)
                 multiline(Int.MAX_VALUE, 200)
@@ -32,29 +35,45 @@ fun createFaqDialog() = dialog {
     type {
         multiAction {
             columns(2)
-            action(createPreviewButton())
+            action(createFaqPreviewButton())
             action(createCancelCreateButton())
             action(createFaqButton())
         }
     }
 }
 
-
-private fun createPreviewButton(): ActionButton = actionButton {
-    label { text("Vorschau") }
-    tooltip { info("Zeigt eine Vorschau des FAQ-Inhalts") }
-    action {
-        customPlayerClick { input, player ->
-            val faqContent = input.getText("faqContent")?.trim() ?: ""
-            if (faqContent.isEmpty()) {
-                player.showDialog(createMissingFaqContentNotice(player))
-                return@customPlayerClick
+private fun createFaqPreviewDialog(faq: Faq) = dialog {
+    base {
+        title { primary("FAQ Vorschau") }
+        body {
+            plainMessage {
+                append(miniMessage().deserialize(faq.content))
             }
-            player.showDialog(createFaqPreviewDialog(faqContent))
+        }
+    }
+    type {
+        notice {
+            label { success("Ok") }
+            action {
+                playerCallback { player ->
+                    player.showDialog(createFaqDialog(faq))
+                }
+            }
         }
     }
 }
 
+private fun createFaqPreviewButton(): ActionButton = actionButton {
+    label { text("Vorschau") }
+    tooltip { info("Zeigt eine Vorschau des FAQ-Inhalts an") }
+    action {
+        customPlayerClick { input, player ->
+            val rawFaqName = input.getText("faqName") ?: ""
+            val faqContent = input.getText("faqContent")?.trim() ?: ""
+            player.showDialog(createFaqPreviewDialog(Faq(rawFaqName, faqContent)))
+        }
+    }
+}
 
 private fun createFaqButton(): ActionButton = actionButton {
     label { text("Erstellen") }
@@ -101,7 +120,7 @@ private fun createMissingFaqNameNotice(player: Player) = dialog {
             label { error("Ok") }
             action {
                 playerCallback {
-                    player.showDialog(createFaqDialog())
+                    player.showDialog(createFaqDialog(Faq("", "")))
                 }
             }
         }
@@ -122,7 +141,7 @@ private fun createMissingFaqContentNotice(player: Player) = dialog {
             label { error("Ok") }
             action {
                 playerCallback {
-                    player.showDialog(createFaqDialog())
+                    player.showDialog(createFaqDialog(Faq("", "")))
                 }
             }
         }
@@ -174,7 +193,7 @@ private fun createExistingFaqByIdNotice(player: Player) = dialog {
             label { error("Ok") }
             action {
                 playerCallback {
-                    player.showDialog(createFaqDialog())
+                    player.showDialog(createFaqDialog(Faq("", "")))
                 }
             }
         }

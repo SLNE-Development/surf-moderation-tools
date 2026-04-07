@@ -24,8 +24,8 @@ fun createFaqDetailsDialog(faq: Faq) = dialog {
             multiAction {
                 columns(2)
                 action(toggleEnabledFaqButton(faq))
-                action(deleteFaqButton(faq))
                 action(editFaqButton(faq))
+                action(deleteFaqButton(faq))
                 exitAction(closeFaqDetailsDialogButton())
             }
         }
@@ -60,7 +60,7 @@ private fun closeFaqDetailsDialogButton(): ActionButton = actionButton {
     tooltip { info("Zurück zur FAQ Liste") }
     action {
         playerCallback { player ->
-            player.showDialog(listFaqsDialog())
+            player.showDialog(createListFaqsDialog())
         }
     }
 }
@@ -136,7 +136,7 @@ private fun confirmDeleteFaqDialog(faq: Faq) = dialog {
                             faqs.removeIf { it.id == faq.id }
                         }
                         dev.slne.surf.moderation.tools.config.SurfModerationToolConfig.save()
-                        player.showDialog(listFaqsDialog())
+                        player.showDialog(createListFaqsDialog())
                     }
                 }
             }

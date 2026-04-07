@@ -2,6 +2,7 @@ package dev.slne.surf.moderation.tools.dialog
 
 import dev.slne.surf.api.paper.dialog.*
 import dev.slne.surf.api.paper.dialog.builder.*
+import dev.slne.surf.moderation.tools.faq.Faq
 import io.papermc.paper.registry.data.dialog.ActionButton
 
 fun createFaqSettingsDialog() = dialog {
@@ -25,7 +26,7 @@ private fun listFaqsButton(): ActionButton = actionButton {
     tooltip { info("Zeigt alle FAQs an") }
     action {
         playerCallback { player ->
-            player.showDialog(listFaqsDialog())
+            player.showDialog(createListFaqsDialog())
         }
     }
 }
@@ -35,7 +36,7 @@ private fun createFaqButton(): ActionButton = actionButton {
     tooltip { info("Erstellt ein neues FAQ") }
     action {
         playerCallback { player ->
-            player.showDialog(createFaqDialog())
+            player.showDialog(createFaqDialog(Faq("", "")))
         }
     }
 }

@@ -37,24 +37,9 @@ fun createEditFaqDialog(faq: Faq) = dialog {
     type {
         multiAction {
             columns(2)
-            action(createEditPreviewButton(faq))
+            action(createPreviewEditButton())
             action(createCancelEditButton(faq))
             action(createSaveChangesButton(faq))
-        }
-    }
-}
-
-private fun createEditPreviewButton(faq: Faq): ActionButton = actionButton {
-    label { text("Vorschau") }
-    tooltip { info("Zeigt eine Vorschau des FAQ-Inhalts") }
-    action {
-        customPlayerClick { input, player ->
-            val faqContent = input.getText("faqContent")?.trim() ?: ""
-            if (faqContent.isEmpty()) {
-                player.showDialog(createMissingFaqContentNotice(player))
-                return@customPlayerClick
-            }
-            player.showDialog(createFaqPreviewDialog(faqContent))
         }
     }
 }
@@ -69,7 +54,7 @@ private fun createCancelEditButton(faq: Faq): ActionButton = actionButton {
     }
 }
 
-private fun createMissingFaqNameNotice(player: Player) = dialog {
+private fun createMissingFaqNameNotice(player: Player, draft: Faq) = dialog {
     base {
         title { error("Kein FAQ-Name angegeben") }
         body {
@@ -83,7 +68,7 @@ private fun createMissingFaqNameNotice(player: Player) = dialog {
             label { error("Ok") }
             action {
                 playerCallback {
-                    player.showDialog(createEditFaqDialog(Faq("", "")))
+                    player.showDialog(createEditFaqDialog(draft))
                 }
             }
         }
@@ -91,7 +76,7 @@ private fun createMissingFaqNameNotice(player: Player) = dialog {
 }
 
 
-private fun createMissingFaqContentNotice(player: Player) = dialog {
+private fun createMissingFaqContentNotice(player: Player, draft: Faq) = dialog {
     base {
         title { error("Kein FAQ-Inhalt angegeben") }
         body {
@@ -105,7 +90,42 @@ private fun createMissingFaqContentNotice(player: Player) = dialog {
             label { error("Ok") }
             action {
                 playerCallback {
-                    player.showDialog(createEditFaqDialog(Faq("", "")))
+                    player.showDialog(createEditFaqDialog(draft))
+                }
+            }
+        }
+    }
+}
+
+@Suppress("UnstableApiUsage")
+private fun createPreviewEditButton(): ActionButton = actionButton {
+    label { text("Vorschau") }
+    tooltip { info("Zeigt eine Vorschau des FAQ-Inhalts an") }
+    action {
+        customPlayerClick { input, player ->
+            val rawFaqName = input.getText("faqName") ?: ""
+            val faqContent = input.getText("faqContent")?.trim() ?: ""
+            player.showDialog(createEditFaqPreviewDialog(Faq(rawFaqName, faqContent)))
+        }
+    }
+}
+
+@Suppress("UnstableApiUsage")
+private fun createEditFaqPreviewDialog(faq: Faq) = dialog {
+    base {
+        title { primary("FAQ Vorschau") }
+        body {
+            plainMessage {
+                append(faq.asComponent())
+            }
+        }
+    }
+    type {
+        notice {
+            label { success("Ok") }
+            action {
+                playerCallback { player ->
+                    player.showDialog(createEditFaqDialog(faq))
                 }
             }
         }
@@ -121,16 +141,16 @@ private fun createSaveChangesButton(faq: Faq): ActionButton = actionButton {
             val faqName = rawFaqName?.replace(" ", "-")?.trim() ?: ""
             val faqContent = input.getText("faqContent")?.trim() ?: ""
             if (faqName.isEmpty()) {
-                player.showDialog(createMissingFaqNameNotice(player))
+                player.showDialog(createMissingFaqNameNotice(player, Faq(rawFaqName ?: "", faqContent, faq.enabled)))
                 return@customPlayerClick
             }
             if (faqContent.isEmpty()) {
-                player.showDialog(createMissingFaqContentNotice(player))
+                player.showDialog(createMissingFaqContentNotice(player, Faq(rawFaqName ?: "", faqContent, faq.enabled)))
                 return@customPlayerClick
             }
             val existingFaqById = SurfModerationToolConfig.getConfig().faqs.find { it.id == faqName && it.id != faq.id }
             if (existingFaqById != null) {
-                player.showDialog(createExistingFaqByIdNotice(player))
+                player.showDialog(createExistingFaqByIdNotice(player, Faq(rawFaqName ?: "", faqContent, faq.enabled)))
             } else {
                 SurfModerationToolConfig.edit {
                     faqs.removeIf { it.id == faq.id }
@@ -157,13 +177,13 @@ private fun createEditSuccessNotice(player: Player) = dialog {
             label { success("Ok") }
             action {
                 playerCallback {
-                    player.showDialog(createFaqSettingsDialog())
+                    player.showDialog((createListFaqsDialog()))
                 }
             }
         }
     }
 }
-private fun createExistingFaqByIdNotice(player: Player) = dialog {
+private fun createExistingFaqByIdNotice(player: Player, draft: Faq) = dialog {
     base {
         title { error("FAQ existiert bereits") }
         body {
@@ -177,7 +197,7 @@ private fun createExistingFaqByIdNotice(player: Player) = dialog {
             label { error("Ok") }
             action {
                 playerCallback {
-                    player.showDialog(createEditFaqDialog(Faq("", "")))
+                    player.showDialog(createEditFaqDialog(draft))
                 }
             }
         }
