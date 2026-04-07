@@ -43,12 +43,8 @@ private fun toggleEnabledFaqButton(faq: Faq): ActionButton = actionButton {
     }
     action {
         playerCallback { player ->
-            dev.slne.surf.moderation.tools.config.SurfModerationToolConfig.edit {
-                val entry = faqs.find { it.id == faq.id }
-                if (entry != null) entry.enabled = !entry.enabled
-            }
-            dev.slne.surf.moderation.tools.config.SurfModerationToolConfig.save()
-            val updated = dev.slne.surf.moderation.tools.config.SurfModerationToolConfig.getConfig().faqs.find { it.id == faq.id } ?: faq
+            val updated = faq.copy(enabled = !faq.enabled)
+            Faq.persist(updated, true)
             player.showDialog(createToggleSuccessNotice(updated))
         }
     }
@@ -132,10 +128,7 @@ private fun confirmDeleteFaqDialog(faq: Faq) = dialog {
                 label { success("Ja") }
                 action {
                     playerCallback { player ->
-                        dev.slne.surf.moderation.tools.config.SurfModerationToolConfig.edit {
-                            faqs.removeIf { it.id == faq.id }
-                        }
-                        dev.slne.surf.moderation.tools.config.SurfModerationToolConfig.save()
+                        Faq.update(faq)
                         player.showDialog(createListFaqsDialog())
                     }
                 }

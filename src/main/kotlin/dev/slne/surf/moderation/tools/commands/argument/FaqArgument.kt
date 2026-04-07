@@ -14,9 +14,8 @@ class FaqArgument(nodeName: String) : CustomArgument<Faq, String>(
     { info ->
         val normalizedInput = info.input.trim()
 
-        SurfModerationToolConfig.getConfig().faqs.find {
-            it.id.equals(normalizedInput, ignoreCase = true)
-        } ?: throw CustomArgumentException.fromAdventureComponent(
+        Faq.byId(normalizedInput)
+            ?: throw CustomArgumentException.fromAdventureComponent(
             buildText {
                 appendErrorPrefix()
                 error("Das FAQ")

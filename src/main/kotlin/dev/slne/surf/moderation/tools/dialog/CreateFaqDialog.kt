@@ -1,7 +1,6 @@
 package dev.slne.surf.moderation.tools.dialog
 
 import dev.slne.surf.api.core.minimessage.SurfMiniMessageHolder.miniMessage
-import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
 import dev.slne.surf.moderation.tools.faq.Faq
 import io.papermc.paper.registry.data.dialog.ActionButton
 import org.bukkit.entity.Player
@@ -83,25 +82,29 @@ private fun createFaqButton(): ActionButton = actionButton {
             val rawFaqName = input.getText("faqName")
             val faqName = rawFaqName?.replace(" ", "-")?.trim() ?: ""
             val faqContent = input.getText("faqContent")?.trim() ?: ""
+
             if (faqName.isEmpty()) {
                 player.showDialog(createMissingFaqNameNotice(player))
                 return@customPlayerClick
             }
+
             if (faqContent.isEmpty()) {
                 player.showDialog(createMissingFaqContentNotice(player))
                 return@customPlayerClick
             }
-            val faq = Faq(faqName, faqContent)
-            val existingFaqById = SurfModerationToolConfig.getConfig().faqs.find { it.id == faqName }
+
+
+            val existingFaqById = Faq.byId(faqName)
+
+
             if (existingFaqById != null) {
                 player.showDialog(createExistingFaqByIdNotice(player))
-            } else {
-                SurfModerationToolConfig.edit {
-                    faqs.add(faq)
-                }
-                SurfModerationToolConfig.save()
-                player.showDialog(createSuccessNotice(player))
+                return@customPlayerClick
             }
+
+            Faq.persist(Faq(faqName, faqContent))
+
+            player.showDialog(createSuccessNotice(player))
         }
     }
 }

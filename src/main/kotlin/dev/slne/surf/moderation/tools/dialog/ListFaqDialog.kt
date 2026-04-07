@@ -1,8 +1,8 @@
 package dev.slne.surf.moderation.tools.dialog
 
-import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
 import dev.slne.surf.api.paper.dialog.*
 import dev.slne.surf.api.paper.dialog.builder.*
+import dev.slne.surf.moderation.tools.faq.Faq
 
 fun createListFaqsDialog() = dialog {
     base {
@@ -11,7 +11,7 @@ fun createListFaqsDialog() = dialog {
     type {
         multiAction {
             columns(1)
-            SurfModerationToolConfig.getConfig().faqs
+            Faq.allFaqs()
                 .sortedBy { it.id }
                 .forEach { faq ->
                     action {
