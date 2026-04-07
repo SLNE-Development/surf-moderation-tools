@@ -113,8 +113,9 @@ private fun createPreviewEditButton(): ActionButton = actionButton {
 @Suppress("UnstableApiUsage")
 private fun createEditFaqPreviewDialog(faq: Faq) = dialog {
     base {
-        title { primary("FAQ Vorschau") }
-        body {
+        title { primary("FAQ Vorschau von ")
+            variableValue(faq.id)  }
+            body {
             plainMessage {
                 append(faq.asComponent())
             }
