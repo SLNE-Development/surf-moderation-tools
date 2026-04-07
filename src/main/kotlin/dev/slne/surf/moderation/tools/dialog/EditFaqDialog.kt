@@ -38,8 +38,19 @@ fun createEditFaqDialog(faq: Faq) = dialog {
         multiAction {
             columns(2)
             action(createPreviewEditButton())
+            action(createResetEditButton(faq))
             action(createCancelEditButton(faq))
             action(createSaveChangesButton(faq))
+        }
+    }
+}
+
+private fun createResetEditButton(faq: Faq): ActionButton = actionButton {
+    label { text("Zurücksetzen") }
+    tooltip { info("Setzt alle Änderungen zurück") }
+    action {
+        playerCallback { player ->
+            player.showDialog(createEditFaqDialog(faq))
         }
     }
 }
