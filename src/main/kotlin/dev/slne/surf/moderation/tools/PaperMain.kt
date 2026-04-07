@@ -16,7 +16,7 @@ class PaperMain : SuspendingJavaPlugin() {
     }
 
     override suspend fun onEnableAsync() {
-        PaperCommandManager().registerCommands()
+        PaperCommandManager.registerCommands()
         PlayerActionListener.register()
     }
 }
