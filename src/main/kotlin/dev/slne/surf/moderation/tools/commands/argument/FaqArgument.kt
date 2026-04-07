@@ -2,6 +2,7 @@ package dev.slne.surf.moderation.tools.commands.argument
 
 import dev.jorel.commandapi.CommandAPICommand
 import dev.jorel.commandapi.arguments.Argument
+import dev.jorel.commandapi.arguments.ArgumentSuggestions
 import dev.jorel.commandapi.arguments.CustomArgument
 import dev.jorel.commandapi.arguments.StringArgument
 import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
@@ -29,7 +30,7 @@ class FaqArgument(nodeName: String) : CustomArgument<Faq, String>(
 {
     init {
         replaceSuggestions(
-            dev.jorel.commandapi.arguments.ArgumentSuggestions.strings {
+            ArgumentSuggestions.strings {
                 SurfModerationToolConfig.getConfig().faqs.map { it.id }.toTypedArray()
             }
         )
