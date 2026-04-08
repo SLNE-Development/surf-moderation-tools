@@ -9,7 +9,7 @@ import dev.slne.surf.moderation.tools.util.PermissionRegistry
 import io.papermc.paper.dialog.Dialog
 import org.bukkit.entity.Player
 
-fun stopInteraction() = commandAPICommand("stopInteraction") {
+fun stopInteractionCommand() = commandAPICommand("stopInteraction") {
     entitySelectorArgumentOnePlayer("targetPlayer")
     withPermission(PermissionRegistry.COMMAND_STOP_INTERACTION)
 

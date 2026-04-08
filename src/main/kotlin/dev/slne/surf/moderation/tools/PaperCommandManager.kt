@@ -9,7 +9,7 @@ object PaperCommandManager {
         rotateCommand()
         freezeCommand()
         unfreezeCommand()
-        stopInteraction()
+        stopInteractionCommand()
         pingPlayerCommand()
     }
 }
