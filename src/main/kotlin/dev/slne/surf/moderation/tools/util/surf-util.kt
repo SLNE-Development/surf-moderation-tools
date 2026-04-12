@@ -1,4 +1,4 @@
-package dev.slne.surf.moderation.tools.utils
+package dev.slne.surf.moderation.tools.util
 
 import dev.slne.surf.api.core.messages.builder.SurfComponentBuilder
 import dev.slne.surf.bitmap.common.provider.BitmapProvider

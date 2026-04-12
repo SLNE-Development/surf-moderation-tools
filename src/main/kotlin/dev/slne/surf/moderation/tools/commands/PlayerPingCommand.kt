@@ -9,8 +9,8 @@ import dev.slne.surf.api.core.messages.adventure.playSound
 import dev.slne.surf.api.core.messages.adventure.sendText
 import dev.slne.surf.api.paper.command.executors.anyExecutorSuspend
 import dev.slne.surf.moderation.tools.plugin
-import dev.slne.surf.moderation.tools.utils.PermissionRegistry
-import dev.slne.surf.moderation.tools.utils.appendArtyPrefix
+import dev.slne.surf.moderation.tools.util.PermissionRegistry
+import dev.slne.surf.moderation.tools.util.appendArtyPrefix
 import kotlinx.coroutines.withContext
 import net.kyori.adventure.sound.Sound.Source
 import net.kyori.adventure.text.format.TextDecoration

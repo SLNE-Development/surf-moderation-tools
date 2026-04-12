@@ -6,8 +6,8 @@ import dev.jorel.commandapi.kotlindsl.getValue
 import dev.jorel.commandapi.kotlindsl.subcommand
 import dev.slne.surf.api.core.messages.adventure.sendText
 import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
-import dev.slne.surf.moderation.tools.utils.PermissionRegistry
-import dev.slne.surf.moderation.tools.utils.durationArgument
+import dev.slne.surf.moderation.tools.util.PermissionRegistry
+import dev.slne.surf.moderation.tools.util.durationArgument
 import kotlin.time.Duration.Companion.milliseconds
 
 fun CommandAPICommand.setMessageCooldownCommand() = subcommand("setMessageCooldown") {

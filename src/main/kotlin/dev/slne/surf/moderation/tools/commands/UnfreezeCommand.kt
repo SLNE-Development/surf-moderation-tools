@@ -6,7 +6,7 @@ import dev.jorel.commandapi.kotlindsl.entitySelectorArgumentOnePlayer
 import dev.jorel.commandapi.kotlindsl.getValue
 import dev.slne.surf.api.core.messages.adventure.sendText
 import dev.slne.surf.moderation.tools.service.FreezeService
-import dev.slne.surf.moderation.tools.utils.PermissionRegistry
+import dev.slne.surf.moderation.tools.util.PermissionRegistry
 import org.bukkit.entity.Player
 
 fun unfreezeCommand() = commandAPICommand("unfreeze") {

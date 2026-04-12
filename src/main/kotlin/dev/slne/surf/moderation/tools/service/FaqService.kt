@@ -3,13 +3,13 @@ package dev.slne.surf.moderation.tools.service
 import com.github.benmanes.caffeine.cache.Caffeine
 import com.github.shynixn.mccoroutine.folia.entityDispatcher
 import com.sksamuel.aedile.core.expireAfterWrite
-import dev.slne.surf.api.core.messages.adventure.playSound
-import dev.slne.surf.api.core.messages.adventure.sendText
-import dev.slne.surf.api.paper.extensions.server
 import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
 import dev.slne.surf.moderation.tools.faq.Faq
 import dev.slne.surf.moderation.tools.plugin
-import dev.slne.surf.moderation.tools.utils.appendArtyPrefix
+import dev.slne.surf.moderation.tools.util.appendArtyPrefix
+import dev.slne.surf.api.paper.extensions.server
+import dev.slne.surf.api.core.messages.adventure.playSound
+import dev.slne.surf.api.core.messages.adventure.sendText
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.supervisorScope
 import net.kyori.adventure.sound.Sound.Source
@@ -29,6 +29,14 @@ object FaqService {
         faq: Faq,
         targets: Collection<Player>? = null
     ) {
+        if (!faq.enabled) {
+            executor.sendText {
+                appendErrorPrefix()
+                error("Dieses FAQ ist deaktiviert und kann nicht gesendet werden.")
+            }
+            return
+        }
+
         val now = System.currentTimeMillis()
         val lastUsed = lastFaqUsage.getIfPresent(faq) ?: 0L
         val remainingMillis = faqCooldown - (now - lastUsed)
@@ -48,7 +56,7 @@ object FaqService {
         if (targets.isNullOrEmpty()) {
             server.sendText {
                 appendArtyPrefix()
-                append(faq.message)
+                append(faq)
             }
         } else {
             executor.sendText {
@@ -63,7 +71,7 @@ object FaqService {
                             appendArtyPrefix()
                             variableValue("@${target.name}", TextDecoration.BOLD)
                             appendSpace()
-                            append(faq.message)
+                            append(faq)
                         }
 
                         target.playSound(useSelfEmitter = true) {

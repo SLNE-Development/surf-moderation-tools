@@ -1,4 +1,4 @@
-package dev.slne.surf.moderation.tools.utils
+package dev.slne.surf.moderation.tools.util
 
 import com.mojang.brigadier.LiteralMessage
 import com.mojang.brigadier.StringReader
