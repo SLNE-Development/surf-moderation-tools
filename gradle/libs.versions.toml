@@ -1,5 +1,5 @@
 [versions]
-surf-bitmap = "2.2.3-SNAPSHOT"
+surf-bitmap = "+"
 
 [libraries]
 surf-bitmap = { module = "dev.slne.surf.bitmap:surf-bitmap-provider-common", version.ref = "surf-bitmap" }
