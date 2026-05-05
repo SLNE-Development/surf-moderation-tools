@@ -15,7 +15,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/faq.html#install-voicechat")
+            clickOpensUrl("https://docs.castcrafter.de/faq.html#install-voicechat")
         }
         appendSpace()
         text("erfährst du, wie du den Voice Chat installierst.")
@@ -27,7 +27,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("hier")
             hoverEvent(buildText { spacer("Klicke, um auf die Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/how-to-join")
+            clickOpensUrl("https://docs.castcrafter.de/how-to-join")
         }
         text(". Für Events brauchst du keine Whitelist – nur für den Survival-Server.")
     }),
@@ -38,7 +38,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("hier")
             hoverEvent(buildText { spacer("Klicke, um auf die Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/support")
+            clickOpensUrl("https://docs.castcrafter.de/support")
         }
         text(".")
     }),
@@ -49,7 +49,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/clan-more-info")
+            clickOpensUrl("https://docs.castcrafter.de/clan-more-info")
         }
         appendSpace()
         text("findest du eine Übersicht mit zusätzlichen Informationen.")
@@ -59,7 +59,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/event-server.html")
+            clickOpensUrl("https://docs.castcrafter.de/event-server.html")
         }
         appendSpace()
         text("erfährst du alles über den Event-Server.")
@@ -69,7 +69,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/plots-homepage.html")
+            clickOpensUrl("https://docs.castcrafter.de/plots-homepage.html")
         }
         appendSpace()
         text("erfährst du alles über das Plotsystem.")
@@ -79,7 +79,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/survival-server.html")
+            clickOpensUrl("https://docs.castcrafter.de/survival-server.html")
         }
         appendSpace()
         text("erfährst du alles über den Survival-Server.")
@@ -115,7 +115,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Dokumentation")
             hoverEvent(buildText { spacer("Klicke, um auf die Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/community-server-landing-page")
+            clickOpensUrl("https://docs.castcrafter.de/community-server-landing-page")
         }
         appendSpace()
         text("beantwortet.")
@@ -127,7 +127,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Hier")
             hoverEvent(buildText { spacer("Klicke, um auf die Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/support#bugreport-ticket")
+            clickOpensUrl("https://docs.castcrafter.de/support#bugreport-ticket")
         }
         appendSpace()
         text("erfährst du, wie du ihn melden kannst, um dem Server zu helfen.")
@@ -139,7 +139,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("Hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/support#report-ticket")
+            clickOpensUrl("https://docs.castcrafter.de/support#report-ticket")
         }
         appendSpace()
         text("zeigen wir dir, wie das geht.")
@@ -151,7 +151,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("hier")
             hoverEvent(buildText { spacer("Klicke, um auf die Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/rules")
+            clickOpensUrl("https://docs.castcrafter.de/rules")
         }
         text(".")
     }),
@@ -172,7 +172,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/how-to-take-part-in-an-event")
+            clickOpensUrl("https://docs.castcrafter.de/how-to-take-part-in-an-event")
         }
         text(".")
     }),
@@ -184,7 +184,7 @@ enum class StaticFaqs(val id: String, val message: SurfComponentBuilder.() -> Un
         append {
             variableValue("hier")
             hoverEvent(buildText { spacer("Klicke, um zur Informationsseite zu gelangen.") })
-            clickOpensUrl("https://server.castcrafter.de/faq.html#veteran-info")
+            clickOpensUrl("https://docs.castcrafter.de/faq.html#veteran-info")
         }
         text(".")
     });
