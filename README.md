@@ -33,6 +33,10 @@
   Manage FAQs directly **in-game** through a clean and user-friendly menu.  
   - Permission: `surf.moderation.tools.command.faq.settings`
 
+- **`/faq info`**  
+  View information about a specific FAQ.
+  - Permission: `surf.moderation.tools.command.faq.send`
+
 #### Features:
 -  **Create** – Create new FAQs  
 -  **Edit** – Modify existing FAQs  
