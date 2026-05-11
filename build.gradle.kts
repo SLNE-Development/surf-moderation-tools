@@ -18,7 +18,7 @@ surfPaperPluginApi {
     foliaSupported(true)
     generateLibraryLoader(false)
 
-    authors.addAll("MikeyLLP", "Timonso", "red")
+    authors.addAll("MikeyLLP", "Timonso", "TheBjoRedCraft")
 
     serverDependencies {
         registerRequired("surf-bitmap-provider-paper")

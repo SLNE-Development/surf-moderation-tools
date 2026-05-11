@@ -22,6 +22,15 @@ fun faqCommand() = commandAPICommand("faq") {
         }
     }
 
+    subcommand("info") {
+        withPermission(PermissionRegistry.COMMAND_FAQ_SEND)
+        faqArgument("faq")
+        playerExecutorSuspend { player, args ->
+            val faq: Faq by args
+            FaqService.sendFaq(player, faq)
+        }
+    }
+
     subcommand("send") {
         withPermission(PermissionRegistry.COMMAND_FAQ_SEND)
         faqArgument("faq")
