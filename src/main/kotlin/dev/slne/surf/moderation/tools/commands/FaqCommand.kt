@@ -27,7 +27,7 @@ fun faqCommand() = commandAPICommand("faq") {
         faqArgument("faq")
         playerExecutorSuspend { player, args ->
             val faq: Faq by args
-            FaqService.sendFaq(player, faq)
+            FaqService.sendFaq(player, faq, infoOnly = true)
         }
     }
 

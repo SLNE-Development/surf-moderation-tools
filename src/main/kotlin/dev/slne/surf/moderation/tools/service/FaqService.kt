@@ -27,12 +27,21 @@ object FaqService {
     suspend fun sendFaq(
         executor: Player,
         faq: Faq,
-        targets: Collection<Player>? = null
+        targets: Collection<Player>? = null,
+        infoOnly: Boolean = false
     ) {
         if (!faq.enabled) {
             executor.sendText {
                 appendErrorPrefix()
                 error("Dieses FAQ ist deaktiviert und kann nicht gesendet werden.")
+            }
+            return
+        }
+
+        if (infoOnly) {
+            executor.sendText {
+                appendArtyPrefix()
+                append(faq)
             }
             return
         }
