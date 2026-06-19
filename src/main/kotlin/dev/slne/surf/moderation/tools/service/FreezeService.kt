@@ -38,9 +38,5 @@ object FreezeService {
         return frozenPlayers.getIfPresent(uuid) != null
     }
 
-    fun getFreezeData(uuid: UUID): FreezeData? = frozenPlayers.getIfPresent(uuid)
-
-    fun getFrozenPlayers(): Collection<UUID> = frozenPlayers.asMap().keys
-
     fun getFrozenEntries(): Map<UUID, FreezeData> = frozenPlayers.asMap().toMap()
 }
