@@ -18,7 +18,7 @@ object FreezeService {
     private val frozenPlayers = Caffeine.newBuilder()
         .maximumSize(10_000)
         .expireAfter(Expiry.writing<UUID, FreezeData> { _, data ->
-            Duration.between(Instant.now(), data.expiresAt).coerceAtLeast(Duration.ZERO)
+            Duration.between(data.frozenAt, data.expiresAt).coerceAtLeast(Duration.ZERO)
         })
         .build<UUID, FreezeData>()
 
