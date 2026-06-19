@@ -11,5 +11,6 @@ object PaperCommandManager {
         unfreezeCommand()
         stopInteractionCommand()
         pingPlayerCommand()
+        freezeListCommand()
     }
 }

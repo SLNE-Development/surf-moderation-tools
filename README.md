@@ -17,6 +17,10 @@
 - **`/unfreeze <Player>`**  
   ☀️ Unfreeze a player.  
   - Permission: `surf.moderation.tools.command.unfreeze`
+  
+- **`/`freezelist``**
+    📋 View a list of currently frozen players.  
+    - Permission: `surf.moderation.tools.command.freeze`
 
 - **`/pingPlayer <Player> <WithMessage>`**  
   📍 Ping a player with an auditory indicator and an optional message.  

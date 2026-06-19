@@ -36,7 +36,8 @@ fun freezeCommand() = commandAPICommand("freeze") {
             return@anyExecutorSuspend
         }
 
-        FreezeService.freeze(targetUuid, duration)
+        val frozenBy = (sender as? Player)?.uniqueId
+        FreezeService.freeze(targetUuid, duration, frozenBy, sender.name)
 
         withContext(plugin.entityDispatcher(targetPlayer)) {
             val location = targetPlayer.location
