@@ -41,6 +41,10 @@
   View information about a specific FAQ.
   - Permission: `surf.moderation.tools.command.faq.send`
 
+- **`/openplayerinpanel`**  
+Open a player's profile in the Panel for quick access to moderation tools.
+  - Permission: `surf.moderation.tools.command.openplayerinpanel`
+
 #### Features:
 -  **Create** – Create new FAQs  
 -  **Edit** – Modify existing FAQs  
