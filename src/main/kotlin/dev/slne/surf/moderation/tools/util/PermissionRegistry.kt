@@ -16,4 +16,5 @@ object PermissionRegistry : PermissionRegistry() {
     val COMMAND_FAQ_SETTINGS = create("$COMMAND_PREFIX.faq.settings")
     val COMMAND_PING_PLAYER = create("$COMMAND_PREFIX.pingplayer")
     val COMMAND_SURF_MOD_TOOLS = create("$COMMAND_PREFIX.surfmodtools")
+    val COMMAND_OPEN_PLAYER_IN_PANEL = create("$COMMAND_PREFIX.openplayerinpanel")
 }

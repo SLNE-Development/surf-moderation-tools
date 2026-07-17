@@ -17,6 +17,10 @@
 - **`/unfreeze <Player>`**  
   ☀️ Unfreeze a player.  
   - Permission: `surf.moderation.tools.command.unfreeze`
+  
+- **`/freezelist`**  
+  📋 View a list of currently frozen players.  
+  - Permission: `surf.moderation.tools.command.freeze`
 
 - **`/pingPlayer <Player> <WithMessage>`**  
   📍 Ping a player with an auditory indicator and an optional message.  
@@ -36,6 +40,10 @@
 - **`/faq info`**  
   View information about a specific FAQ.
   - Permission: `surf.moderation.tools.command.faq.send`
+
+- **`/openplayerinpanel`**  
+Open a player's profile in the Panel for quick access to moderation tools.
+  - Permission: `surf.moderation.tools.command.openplayerinpanel`
 
 #### Features:
 -  **Create** – Create new FAQs  

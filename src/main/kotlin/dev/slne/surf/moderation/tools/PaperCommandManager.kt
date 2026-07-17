@@ -4,6 +4,7 @@ import dev.slne.surf.moderation.tools.commands.*
 
 object PaperCommandManager {
     fun registerCommands() {
+        openPlayerInPanelCommand()
         surfModerationToolsCommand()
         faqCommand()
         rotateCommand()
@@ -11,5 +12,6 @@ object PaperCommandManager {
         unfreezeCommand()
         stopInteractionCommand()
         pingPlayerCommand()
+        freezeListCommand()
     }
 }
