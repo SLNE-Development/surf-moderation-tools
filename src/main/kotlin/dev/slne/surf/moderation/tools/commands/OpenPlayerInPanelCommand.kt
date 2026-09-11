@@ -3,14 +3,12 @@ package dev.slne.surf.moderation.tools.commands
 import dev.jorel.commandapi.kotlindsl.commandTree
 import dev.jorel.commandapi.kotlindsl.getValue
 import dev.jorel.commandapi.kotlindsl.stringArgument
-import dev.slne.surf.api.paper.command.executors.anyExecutorSuspend
 import dev.slne.surf.api.core.font.toSmallCaps
 import dev.slne.surf.api.core.messages.CommonComponents
 import dev.slne.surf.api.core.messages.adventure.buildText
-import dev.slne.surf.api.core.messages.adventure.clickCopiesToClipboard
-import dev.slne.surf.api.core.messages.adventure.clickOpensUrl
 import dev.slne.surf.api.core.messages.adventure.sendText
 import dev.slne.surf.api.core.service.PlayerLookupService
+import dev.slne.surf.api.paper.command.executors.anyExecutorSuspend
 import dev.slne.surf.moderation.tools.util.PermissionRegistry
 import net.kyori.adventure.text.format.TextDecoration
 import java.util.*
@@ -38,7 +36,7 @@ fun openPlayerInPanelCommand() = commandTree("openplayerinpanel") {
                 return@anyExecutorSuspend
             }
 
-            val url = "https://support.castcrafter.de/core/surf-players/$uuid"
+            val url = "https://support.castcrafter.de/players/$uuid"
 
             sender.sendText {
                 appendSuccessPrefix()
