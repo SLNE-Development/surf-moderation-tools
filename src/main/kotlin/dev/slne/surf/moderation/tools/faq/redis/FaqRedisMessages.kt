@@ -27,5 +27,7 @@ class FaqsChangedEvent : RedisEvent()
 
 @Serializable
 data class MinecraftFaqUsedEvent(
-    val key: String
+    val key: String,
+    val senderUuid: String,
+    val senderName: String
 ) : RedisEvent()

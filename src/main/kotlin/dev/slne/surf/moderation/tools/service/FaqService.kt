@@ -128,9 +128,11 @@ object FaqService {
         }
     }
 
-    private fun recordUsage(faq: Faq) {
+    private fun recordUsage(faq: Faq, sender: Player) {
         try {
-            RedisService.redisApi.publishEvent(MinecraftFaqUsedEvent(faq.key))
+            RedisService.redisApi.publishEvent(
+                MinecraftFaqUsedEvent(faq.key, sender.uniqueId.toString(), sender.name)
+            )
         } catch (e: Exception) {
             log.atWarning()
                 .withCause(e)
@@ -167,7 +169,7 @@ object FaqService {
         }
 
         lastFaqUsage.put(faq.key, now)
-        recordUsage(faq)
+        recordUsage(faq, executor)
 
         if (targets.isNullOrEmpty()) {
             server.sendText {
