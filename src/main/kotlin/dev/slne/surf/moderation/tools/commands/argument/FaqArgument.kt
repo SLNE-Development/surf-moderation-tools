@@ -5,32 +5,31 @@ import dev.jorel.commandapi.arguments.Argument
 import dev.jorel.commandapi.arguments.ArgumentSuggestions
 import dev.jorel.commandapi.arguments.CustomArgument
 import dev.jorel.commandapi.arguments.StringArgument
-import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
-import dev.slne.surf.moderation.tools.faq.Faq
 import dev.slne.surf.api.core.messages.adventure.buildText
+import dev.slne.surf.moderation.tools.faq.Faq
+import dev.slne.surf.moderation.tools.service.FaqService
 
 class FaqArgument(nodeName: String) : CustomArgument<Faq, String>(
     StringArgument(nodeName),
     { info ->
         val normalizedInput = info.input.trim()
 
-        Faq.byId(normalizedInput)
+        FaqService.byKey(normalizedInput)
             ?: throw CustomArgumentException.fromAdventureComponent(
-            buildText {
-                appendErrorPrefix()
-                error("Das FAQ")
-                appendSpace()
-                variableValue(normalizedInput)
-                appendSpace()
-                error("existiert nicht.")
-            }
-        )
-    })
-{
+                buildText {
+                    appendErrorPrefix()
+                    error("Das FAQ")
+                    appendSpace()
+                    variableValue(normalizedInput)
+                    appendSpace()
+                    error("existiert nicht.")
+                }
+            )
+    }) {
     init {
         replaceSuggestions(
             ArgumentSuggestions.strings {
-                SurfModerationToolConfig.getConfig().faqs.map { it.id }.toTypedArray()
+                FaqService.all().map { it.key }.toTypedArray()
             }
         )
     }
