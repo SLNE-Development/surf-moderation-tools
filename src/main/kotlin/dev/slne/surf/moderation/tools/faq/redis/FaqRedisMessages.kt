@@ -6,7 +6,9 @@ import dev.slne.surf.redis.request.RedisResponse
 import kotlinx.serialization.Serializable
 
 @Serializable
-class MinecraftFaqsRequest : RedisRequest()
+data class MinecraftFaqsRequest(
+    val refresh: Boolean = false
+) : RedisRequest()
 
 @Serializable
 data class MinecraftFaqsResponse(

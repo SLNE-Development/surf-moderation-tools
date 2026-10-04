@@ -61,6 +61,8 @@ FAQs are no longer stored in the plugin config. They live in the database of the
   - on `/surfmodtools reload`,
   - automatically when the microservice reports changed FAQs (checked about once per minute) or when the microservice starts.
 - If the microservice cannot be reached, the plugin keeps the FAQs it cached last.
+- Every successful load is also written to `plugins/surf-moderation-tools/faq-cache.json`. If the server starts
+  while the microservice is down, the FAQs are loaded from this file instead.
 - Every `/faq send` reports a usage to the microservice, which stores it in `faq_usage` with source `MINECRAFT`
   (flushed every 30 seconds). `/faq info` is not counted.
 - FAQs are created and edited in the database, not in-game.

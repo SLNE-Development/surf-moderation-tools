@@ -14,7 +14,7 @@ fun CommandAPICommand.surfModToolsReloadCommand() = subcommand("reload") {
     anyExecutorSuspend { sender, _ ->
         val (faqCount, duration) = measureTimedValue {
             SurfModerationToolConfig.reloadFromFile()
-            FaqService.reload()
+            FaqService.reload(refresh = true)
         }
 
         sender.sendText {
