@@ -18,6 +18,8 @@ surfPaperPluginApi {
     foliaSupported(true)
     generateLibraryLoader(false)
 
+    withSurfRedis()
+
     authors.addAll("MikeyLLP", "Timonso", "red")
 
     serverDependencies {

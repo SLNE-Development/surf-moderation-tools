@@ -1,60 +1,38 @@
 package dev.slne.surf.moderation.tools.faq
 
-import dev.slne.surf.api.core.messages.builder.SurfComponentBuilder
-import dev.slne.surf.moderation.tools.config.SurfModerationToolConfig
+import dev.slne.surf.api.core.messages.adventure.buildText
+import dev.slne.surf.moderation.tools.faq.redis.MinecraftFaqData
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.ComponentLike
-import net.kyori.adventure.text.minimessage.MiniMessage.miniMessage
-import org.spongepowered.configurate.objectmapping.ConfigSerializable
+import net.kyori.adventure.text.TextReplacementConfig
 
-@ConfigSerializable
 data class Faq(
-    val id: String,
-    val content: String,
-    var enabled: Boolean = true
+    val key: String,
+    val question: String,
+    val shortText: String
 ) : ComponentLike {
-    private val cachedComponent: Component = miniMessage().deserialize(content)
+    private val cachedComponent: Component = buildText { text(shortText) }.replaceText(linkReplacement)
 
     override fun asComponent(): Component = cachedComponent
 
     companion object {
-        fun create(
-            id: String,
-            content: SurfComponentBuilder.() -> Unit,
-            enabled: Boolean = true
-        ): Faq =
-            Faq(
-                id,
-                miniMessage().serialize(SurfComponentBuilder(content)),
-                enabled
-            )
+        private val urlPattern = Regex("""https?://[^\s<>()]*[^\s<>().,;:!?]""").toPattern()
 
-        fun byId(id: String): Faq? {
+        private val linkReplacement = TextReplacementConfig.builder()
+            .match(urlPattern)
+            .replacement { match, _ ->
+                val url = match.group()
 
-            return SurfModerationToolConfig.getConfig().faqs.find {
-                it.id.equals(id, ignoreCase = true)
-            }
-        }
-
-        fun persist(faq: Faq, replace: Boolean = false) {
-            SurfModerationToolConfig.edit {
-
-                if (replace) {
-                    faqs.removeIf { it.id == faq.id }
+                buildText {
+                    append {
+                        variableValue(url)
+                        hoverEvent(buildText { spacer("Klicke, um den Link zu öffnen.") })
+                        clickOpensUrl(url)
+                    }
                 }
-
-                faqs.add(faq)
             }
-            SurfModerationToolConfig.save()
-        }
+            .build()
 
-        fun update(faq: Faq) {
-
-            SurfModerationToolConfig.edit {
-                faqs.removeIf { it.id == faq.id }
-            }
-            SurfModerationToolConfig.save()
-        }
-
-        fun allFaqs(): List<Faq> = SurfModerationToolConfig.getConfig().faqs.toList() }
+        fun fromData(data: MinecraftFaqData) = Faq(data.key, data.question, data.shortText)
     }
+}
